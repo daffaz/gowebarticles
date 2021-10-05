@@ -1,13 +1,12 @@
 package main
 
 import (
-	"net/http"
+	"gowebmicro/routes"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-
 	// Set the router using the default one provided by Gin
 	router := gin.Default()
 
@@ -15,11 +14,6 @@ func main() {
 	// from the disk again. This makes serving HTML pages very fast.
 	router.LoadHTMLGlob("templates/*/*.html")
 
-	// Route handler
-	router.GET("/", func(ctx *gin.Context) {
-		// Call the HTML method of the context to render a template
-		ctx.HTML(http.StatusOK, "index.html", gin.H{"title": "Home Page"})
-	})
-
-	router.Run()
+	// Initialize the routes + running it
+	routes.InitAndRunRoutes(router)
 }
