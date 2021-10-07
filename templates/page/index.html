@@ -4,7 +4,20 @@
 {{ template "header.html" . }}
 
 <div class="container">
-    <h1>Hello Gin</h1>
+    <h1 class="mb-4">Go Rocks!</h1>
+    <div class="row">
+        {{ range .payload }}
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ .Title }}</h5>
+                    <p class="card-text">{{ .Content }}</p>
+                    <a href="/article/view/{{ .Slug }}" class="btn btn-primary">Read more</a>
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
 </div>
 
 

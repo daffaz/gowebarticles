@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"gowebmicro/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,5 +15,5 @@ func InitAndRunRoutes(router *gin.Engine) {
 
 func ShowIndexPage(ctx *gin.Context) {
 	// Call the HTML method of the context to render a template
-	ctx.HTML(http.StatusOK, "index.html", gin.H{"title": "Home Page"})
+	ctx.HTML(http.StatusOK, "index.html", gin.H{"title": "Home Page", "payload": models.ArticleList})
 }

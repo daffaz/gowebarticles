@@ -12,7 +12,7 @@ func TestGetAllArticles(t *testing.T) {
 	}
 	// Check that each member is identical
 	for i, v := range articlesTestList {
-		if v.Content != ArticleList[i].Content || v.ID != ArticleList[i].ID || v.Title != ArticleList[i].Title {
+		if v.Content != ArticleList[i].Content || v.ID != ArticleList[i].ID || v.Title != ArticleList[i].Title || v.Slug != ArticleList[i].Slug {
 			t.Fail()
 			break
 		}
