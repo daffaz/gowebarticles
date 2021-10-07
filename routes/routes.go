@@ -15,9 +15,20 @@ func InitAndRunRoutes(router *gin.Engine) {
 	router.Run(":8080")
 }
 
+func Render(c *gin.Context, data gin.H, templateName string) {
+	switch c.Request.Header.Get("Accept") {
+	case "application/json":
+		c.JSON(http.StatusOK, data)
+	case "application/xml":
+		c.XML(http.StatusOK, data)
+	default:
+		c.HTML(http.StatusOK, templateName, data)
+	}
+}
+
 func ShowIndexPage(ctx *gin.Context) {
 	// Call the HTML method of the context to render a template
-	ctx.HTML(http.StatusOK, "index.html", gin.H{"title": "Home Page", "payload": models.ArticleList})
+	Render(ctx, gin.H{"title": "Home Page", "payload": models.ArticleList}, "index.html")
 }
 
 func GetArticle(ctx *gin.Context) {
@@ -25,7 +36,10 @@ func GetArticle(ctx *gin.Context) {
 	if err != nil {
 		ctx.AbortWithError(http.StatusNotFound, err)
 	}
-	ctx.HTML(http.StatusOK, "article.html", gin.H{"title": article.Title, "payload": article})
+	Render(ctx, gin.H{
+		"title":   article.Title,
+		"payload": article,
+	}, "article.html")
 }
 
 func FetchSingleArticle(slug string) (*models.Article, error) {
